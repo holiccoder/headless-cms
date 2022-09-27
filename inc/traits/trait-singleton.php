@@ -70,18 +70,20 @@ trait Singleton {
 		 * for each sub-class.
 		 */
 		$called_class = get_called_class();
+		
+		//这个方法可以获取在静态方法里运行的类名
 
 		if ( ! isset( $instance[ $called_class ] ) ) {
-
+                        //如果没有实例的话就获取类名创建实例并最后返回
 			$instance[ $called_class ] = new $called_class();
 
 			/**
 			 * Dependent items can use the headless_cms_features_singleton_init_{$called_class} hook to execute code
 			 */
 			do_action( sprintf( 'headless_cms_features_singleton_init_%s', $called_class ) ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
-
+                        
 		}
-
+                //return instance of the called class
 		return $instance[ $called_class ];
 
 	}
